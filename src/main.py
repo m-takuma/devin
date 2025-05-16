@@ -42,8 +42,7 @@ async def main():
 
     user_content = types.Content(role='user', parts=[types.Part(text=user_query)])
 
-    final_response_text = "Agent interaction failed." # Default error message
-
+    final_response_text = None # Initialize to None
     try:
         # Run the agent and process events
         async for event in runner.run_async(user_id=USER_ID, session_id=SESSION_ID, new_message=user_content):
@@ -51,8 +50,8 @@ async def main():
             if event.is_final_response() and event.content and event.content.parts:
                 final_response_text = event.content.parts[0].text
                 break # Stop after the first final response for this simple interaction
-        if final_response_text == "Agent interaction failed.": # If loop finished without a final response
-             final_response_text = "No final response received from agent."
+        if final_response_text is None: # If loop finished without a final response
+            final_response_text = "No final response received from agent."
     except Exception as e:
         print(f"An error occurred during agent interaction: {e}")
         final_response_text = "Sorry, I encountered an error while processing your request. Please try again later."
