@@ -46,8 +46,8 @@ Follow these steps to set up your development environment:
     ```bash
     git submodule update --init --recursive
     ```
-    The `google-adk` documentation will be available in the `/Users/m-takuma/working/devin/docs/` directory.
-    `google-adk` のドキュメントは `/Users/m-takuma/working/devin/docs/` ディレクトリで利用可能になります。
+    The `google-adk` documentation will be available in the `docs/` directory.
+    `google-adk` のドキュメントは `docs/google-adk/` ディレクトリで利用可能になります。
 
 3.  **Create and Activate Virtual Environment (using `uv`)**:
     It's highly recommended to use a virtual environment to manage project dependencies.
@@ -78,7 +78,7 @@ Follow these steps to set up your development environment:
 4.  **依存関係のインストール (`uv` を使用)**:
     仮想環境を有効化した状態で、必要なPythonパッケージをインストールします：
     ```bash
-    uv pip install -r /Users/m-takuma/working/devin/requirements.txt
+    uv pip install -r requirements.txt
     ```
 
 ## VSCode Configuration
@@ -88,7 +88,7 @@ Follow these steps to set up your development environment:
     1.  Open the Command Palette (Cmd+Shift+P or Ctrl+Shift+P).
     2.  Type "Python: Select Interpreter".
     3.  Choose the interpreter located at `.venv/bin/python` within your project directory.
-*   **Debugging and Testing**: The project includes a `/Users/m-takuma/working/devin/.vscode/launch.json` file with pre-configured settings for:
+*   **Debugging and Testing**: The project includes a `.vscode/launch.json` file with pre-configured settings for:
     *   Debugging the current Python file ("Python: Current File").
     *   Running unit tests ("Python: Run Unittests").
     You can access these from the "Run and Debug" view in VSCode.
@@ -96,7 +96,7 @@ Follow these steps to set up your development environment:
     1.  コマンドパレットを開きます (Cmd+Shift+P または Ctrl+Shift+P)。
     2.  "Python: Select Interpreter" と入力します。
     3.  プロジェクトディレクトリ内の `.venv/bin/python` にあるインタプリタを選択します。
-*   **デバッグとテスト**: プロジェクトには、以下のための事前設定が含まれた `/Users/m-takuma/working/devin/.vscode/launch.json` ファイルがあります：
+*   **デバッグとテスト**: プロジェクトには、以下のための事前設定が含まれた `.vscode/launch.json` ファイルがあります：
     *   現在のPythonファイルのデバッグ ("Python: Current File")。
     *   ユニットテストの実行 ("Python: Run Unittests")。
     これらはVSCodeの「実行とデバッグ」ビューからアクセスできます。
@@ -125,8 +125,8 @@ To run the main application (currently, it initializes the root agent and prints
 ```bash
 # Ensure your virtual environment is activated
 # 仮想環境が有効化されていることを確認してください
-python /Users/m-takuma/working/devin/src/main.py
+python src/main.py
 # Or using uv:
 # または uv を使用する場合:
-uv run python /Users/m-takuma/working/devin/src/main.py
+uv run python src/main.py
 ```
