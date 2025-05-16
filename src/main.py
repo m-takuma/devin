@@ -1,4 +1,9 @@
+import asyncio
+from google.adk.runners import Runner
+from google.adk.sessions import InMemorySessionService
+from google.genai import types
 from google.adk.agents import LlmAgent
+import os
 
 # Define the root orchestrator agent
 root_agent = LlmAgent(
@@ -15,13 +20,41 @@ If the request is simple and doesn't require a sub-agent, you can attempt to ans
     tools=[] # Sub-agents (as AgentTool instances) will be added here later
 )
 
-def main():
-    print("Root orchestrator agent defined successfully!")
-    print(f"Agent Name: {root_agent.name}")
-    print(f"Agent Description: {root_agent.description}")
-    print(f"Agent Model: {root_agent.model}")
-    # In future steps, this main function will likely be used to run the agent
-    # or initiate a session with it.
+APP_NAME = "devin_orchestrator_app"
+USER_ID = "test_user_001"
+SESSION_ID = "test_session_001"
+
+async def main():
+    print("Initializing agent runner...")
+
+    session_service = InMemorySessionService()
+    # Create a session for the interaction
+    session_service.create_session(app_name=APP_NAME, user_id=USER_ID, session_id=SESSION_ID)
+
+    runner = Runner(
+        agent=root_agent,
+        app_name=APP_NAME,
+        session_service=session_service
+    )
+
+    user_query = "Hello, what is your primary role?"
+    print(f"\n>>> Sending to agent '{root_agent.name}': '{user_query}'")
+
+    user_content = types.Content(role='user', parts=[types.Part(text=user_query)])
+
+    final_response_text = "No final response received from agent."
+    # Run the agent and process events
+    async for event in runner.run_async(user_id=USER_ID, session_id=SESSION_ID, new_message=user_content):
+        # print(f"Event: {event.type}, Author: {event.author}") # Uncomment for detailed event logging
+        if event.is_final_response() and event.content and event.content.parts:
+            final_response_text = event.content.parts[0].text
+            break # Stop after the first final response for this simple interaction
+
+    print(f"\n<<< Agent '{root_agent.name}' Response: {final_response_text}")
+
+    # You can inspect the session state if needed
+    # current_session = session_service.get_session(app_name=APP_NAME, user_id=USER_ID, session_id=SESSION_ID)
+    # print(f"\nSession state after interaction: {current_session.state}")
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())

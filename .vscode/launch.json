@@ -12,7 +12,8 @@
             "console": "integratedTerminal",
             "justMyCode": true,
             // Ensure VSCode uses the Python interpreter from your uv virtual environment
-            "python": "${workspaceFolder}/.venv/bin/python"
+            "python": "${workspaceFolder}/.venv/bin/python",
+            "envFile": "${workspaceFolder}/.env"
         },
         {
             "name": "Python: Run Unittests",
@@ -30,7 +31,8 @@
             "justMyCode": true,
             "cwd": "${workspaceFolder}", // Set current working directory to project root
             // Ensure VSCode uses the Python interpreter from your uv virtual environment
-            "python": "${workspaceFolder}/.venv/bin/python"
+            "python": "${workspaceFolder}/.venv/bin/python",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
