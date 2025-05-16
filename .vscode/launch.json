@@ -1,0 +1,36 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            // Ensure VSCode uses the Python interpreter from your uv virtual environment
+            "python": "${workspaceFolder}/.venv/bin/python"
+        },
+        {
+            "name": "Python: Run Unittests",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "unittest",
+            "args": [
+                "discover",
+                "-s",
+                "${workspaceFolder}/tests", // Start directory for discovery
+                "-p",
+                "test_*.py" // Pattern for test files
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}", // Set current working directory to project root
+            // Ensure VSCode uses the Python interpreter from your uv virtual environment
+            "python": "${workspaceFolder}/.venv/bin/python"
+        }
+    ]
+}
