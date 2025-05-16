@@ -23,3 +23,5 @@ jobs:
 
     - name: Run tests
       run: python -m unittest discover tests
+      env:
+        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
